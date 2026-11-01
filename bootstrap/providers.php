@@ -1,7 +1,8 @@
 <?php
 
-use App\Providers\AppServiceProvider;
-
 return [
-    AppServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
+    Modules\Wallet\Providers\WalletServiceProvider::class,
+    Modules\PaymentProcessing\Providers\PaymentProcessingServiceProvider::class,
+    Modules\Payout\Providers\PayoutServiceProvider::class,
 ];
