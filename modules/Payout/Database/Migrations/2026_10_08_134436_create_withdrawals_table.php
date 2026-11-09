@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('withdrawals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('wallet_id')->constrained('wallets')->restrictOnDelete();
-            $table->decimal('amount', 15, 2)->default(0.00);
+            $table->unsignedBigInteger('amount')->default(0);
             $table->string('status', 20)->default('PENDING')->index(); // PENDING, SUCCESS, FAILED
             $table->string('reference_id', 50)->nullable();
             $table->string('method', 20); // ATM, BANK

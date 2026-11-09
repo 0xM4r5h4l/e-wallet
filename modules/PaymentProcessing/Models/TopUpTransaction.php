@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\PaymentProcessing\Models;
 
 use Illuminate\Database\Eloquent\Attributes\UseFactory;

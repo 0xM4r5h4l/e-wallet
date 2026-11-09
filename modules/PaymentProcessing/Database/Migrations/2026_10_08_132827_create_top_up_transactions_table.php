@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('top_up_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('wallet_id')->constrained('wallets')->restrictOnDelete();
-            $table->decimal('amount', 15, 2);
+            $table->unsignedBigInteger('amount');
             $table->string('method', 20); // BANK_TRANSFER, CARD, CASH
             $table->string('payment_provider_id', 50)->nullable();
             $table->string('payment_transaction_id', 50)->nullable();

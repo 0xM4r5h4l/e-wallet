@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->unique()->constrained('users')->restrictOnDelete();
-            $table->decimal('balance', 15, 2)->default(0.00);
-            $table->string('currency', 3)->default('EGP');
+            $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
+            $table->unsignedBigInteger('balance')->default(0);
+            $table->char('currency', 3)->default('EGP');
             $table->string('status', 20)->default('ACTIVE')->index(); // ACTIVE, SUSPENDED, CLOSED
             $table->string('kyc_status', 20)->default('PENDING')->index(); // PENDING, VERIFIED, REJECTED
 
             $table->timestamps();
-            $table->softDeletes();
+            $table->unique(['user_id', 'currency']);
         });
     }
 

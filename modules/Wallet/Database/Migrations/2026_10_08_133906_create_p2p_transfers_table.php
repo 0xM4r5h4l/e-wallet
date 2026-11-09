@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('from_wallet_id')->constrained('wallets')->restrictOnDelete();
             $table->foreignId('to_wallet_id')->constrained('wallets')->restrictOnDelete();
-            $table->decimal('amount', 15, 2);
+            $table->unsignedBigInteger('amount');
             $table->string('status', 20)->default('PENDING')->index(); // PENDING, SUCCESS, FAILED
             $table->timestamp('completed_at')->nullable();
 
