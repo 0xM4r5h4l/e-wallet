@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Auth\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +14,7 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Modules\Auth\Database\Factories\UserFactory;
 
+#[UseFactory(UserFactory::class)]
 class User extends Authenticatable
 {
     protected static function booted(): void
