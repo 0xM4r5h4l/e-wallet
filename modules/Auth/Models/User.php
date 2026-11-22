@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -17,15 +17,7 @@ use Modules\Auth\Database\Factories\UserFactory;
 #[UseFactory(UserFactory::class)]
 class User extends Authenticatable
 {
-    protected static function booted(): void
-    {
-        static::creating(function ($model) {
-            $model->uuid = (string) Str::orderedUuid();
-        });
-    }
-
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, LogsActivity;
+    use HasFactory, Notifiable, HasApiTokens, LogsActivity, HasUuids;
 
     protected $fillable = [
         'name',
@@ -53,6 +45,11 @@ class User extends Authenticatable
             'mobile_number_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function uniqueIds(): array
+    {
+        return ['uuid'];
     }
 
     public function getActivitylogOptions(): LogOptions
