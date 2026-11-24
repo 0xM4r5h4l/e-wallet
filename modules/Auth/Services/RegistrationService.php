@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Auth\Services;
 
+use Modules\Auth\Events\UserRegistered;
 use Modules\Auth\Models\User;
 
 class RegistrationService
@@ -16,6 +17,7 @@ class RegistrationService
 
         $token = $user->createToken('auth_token', expiresAt: $expiresAt)->plainTextToken;
         
+        UserRegistered::dispatch($user->id);
         return [
             'user' => $user,
             'token' => $token

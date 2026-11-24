@@ -31,6 +31,9 @@ test('new customers can register with valid information', function () {
             "mobile_number" => "+201095648281"
         ],
         'message' => 'Registration successful'
+    ])->assertDatabaseHas('wallets', [
+        'currency' => 'EGP',
+        'balance' => 0
     ])->assertStatus(201);
 });
 

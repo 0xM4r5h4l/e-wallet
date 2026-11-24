@@ -2,8 +2,11 @@
 
 namespace Modules\Wallet\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
+use Modules\Auth\Events\UserRegistered;
+use Modules\Wallet\Listeners\CreateDefaultWallet;
 use Modules\Wallet\Models\Wallet;
 use Modules\Wallet\Policies\WalletPolicy;
 
@@ -16,5 +19,10 @@ class WalletServiceProvider extends ServiceProvider
 
         Gate::policy(Wallet::class, WalletPolicy::class);
         $this->app->register(RouteServiceProvider::class);
+
+        Event::listen(
+            UserRegistered::class,
+            CreateDefaultWallet::class
+        );
     }
 }

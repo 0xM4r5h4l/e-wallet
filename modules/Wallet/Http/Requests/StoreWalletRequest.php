@@ -7,6 +7,7 @@ namespace Modules\Wallet\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Modules\Wallet\Enums\Currency;
 
 class StoreWalletRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class StoreWalletRequest extends FormRequest
         return [
             'currency' => [
                 'required', 'string',
-                'max:3', 'in:USD,EUR,EGP,SAR',
+                'max:3', Rule::enum(Currency::class),
                 Rule::unique('wallets', 'currency')->where('user_id', $this->user()->id)
             ],
         ];
